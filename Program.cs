@@ -1,29 +1,9 @@
 ﻿using Raylib_cs;
 
-public static class Game
+public static class Program
 {
-#region WindowSetupInfo
-    private readonly static string Title = "Jam-O'-Ween";
-    const int WIDTH = 600;
-    const int HEIGHT = 600;
-#endregion
-
-
     static void Main()
     {
-        Raylib.InitWindow(WIDTH, HEIGHT, Title);
-
-        while(!Raylib.WindowShouldClose())
-        {
-            Raylib.ClearBackground(Color.Beige);
-            Raylib.BeginDrawing();
-            {
-                Raylib.DrawFPS(0, 0);
-                
-            }
-            Raylib.EndDrawing();
-        }
-
-        Raylib.CloseWindow();
+        
     }
 }
