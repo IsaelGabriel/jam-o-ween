@@ -1,4 +1,5 @@
-﻿using halloween.Networking;
+﻿using halloween.Game;
+using halloween.Networking;
 
 const ushort PORT = 7777;
 
@@ -25,6 +26,14 @@ switch (key.Key)
         {
             hostClient.Start("127.0.0.1", PORT);
         }).Start();
+
+        Window.InitWindow(() =>
+        {
+            hostClient.Close();
+            hostServer.Close();
+        });
+
+
         break;
 
     case ConsoleKey.C:
@@ -40,9 +49,18 @@ switch (key.Key)
 
         } while (!ValidateIPv4(ip));
 
+        new Task(() =>
+        {
+            client.Start(ip, PORT);
+
+        });
+
+        Window.InitWindow(() =>
+        {
+            client.Close();
+        });
 
 
-        client.Start(ip, PORT);
         break;
 }
 

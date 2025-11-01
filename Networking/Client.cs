@@ -147,7 +147,7 @@ internal class Client
             Console.WriteLine("Error sending TCP data: " + ex.Message);
         }
     }
-    
+
     private void SendDataWithUdp()
     {
         try
@@ -161,9 +161,14 @@ internal class Client
                 _udpClient.Send(data, data.Length);
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Console.WriteLine("Error sending UDP data: " + ex.Message);
         }
+    }
+    
+    public void Close()
+    {
+        _running = false;
     }
 }

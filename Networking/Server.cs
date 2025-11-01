@@ -243,19 +243,24 @@ internal class Server
             }
         }
     }
-    
+
 
 
     private void RemoveTcpClient(int clientId)
     {
-        lock(_clientsLock)
+        lock (_clientsLock)
         {
-            if(_tcpClients.ContainsKey(clientId))
+            if (_tcpClients.ContainsKey(clientId))
             {
                 _tcpClients.Remove(clientId);
                 Console.WriteLine($"Removed TCP client {clientId} from tracking");
             }
         }
+    }
+    
+    public void Close()
+    {
+        _running = false;
     }
 
 }
