@@ -121,7 +121,6 @@ internal class Client
     {
         try
         {
-            // Create an endpoint to capture the sender's information
             IPEndPoint remoteEndPoint = new IPEndPoint(IPAddress.Any, 0);
 
             byte[] receivedData = _udpClient.EndReceive(result, ref remoteEndPoint);

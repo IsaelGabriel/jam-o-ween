@@ -136,7 +136,7 @@ internal class Packet : IDisposable
         if (_bufferList.Count > _readPos)
         {
             int length = BitConverter.ToInt32(_bufferArray, _readPos);
-            string value = BitConverter.ToString(_bufferArray, _readPos + 4, length);
+            string value = Encoding.ASCII.GetString(_bufferArray, _readPos + 4, length);
 
             if (move_ReadPos)
             {

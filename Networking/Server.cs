@@ -38,9 +38,9 @@ internal class Server
             _running = true;
 
 
+            Console.Write("\nServer is running. Press 'X' to stop, T or U to send a message to all clients with TCP or UDP.");
             while(_running)
             {
-                Console.Write("\nServer is running. Press 'X' to stop, T or U to send a message to all clients with TCP or UDP.");
                 var key = Console.ReadKey(true);
                 switch(key.Key)
                 {
@@ -64,7 +64,7 @@ internal class Server
         }
         finally
         {
-            Console.WriteLine("Shutting down server...");
+            Console.WriteLine("\nShutting down server...");
             // Clean up all resources
             lock (_clientsLock)
             {
@@ -200,6 +200,7 @@ internal class Server
                     if (tcpEndPoint.Address.Equals(endPoint.Address))
                     {
                         // Found matching client by IP address, set the UDP endpoint
+                        client.EndPoint = endPoint;
                         Console.WriteLine($"Associated UDP endpoint for client {client.ClientId}: {endPoint}");
                         break;
                     }
@@ -246,11 +247,12 @@ internal class Server
             packet.WriteInt(1); // Packet ID
             packet.WriteString(message); // String message
             var data = packet.GetByteArray();
-            foreach (var client in _tcpClients)
+            foreach (TcpClientState client in _tcpClients.Values)
             {
-                if (client.Value.EndPoint != null)
+                if (client.EndPoint != null)
                 {
-                    _udpListener.BeginSend(data, data.Length, client.Value.EndPoint, null, null);
+                    Console.WriteLine($"Sending to client {client.ClientId}");
+                    _udpListener.BeginSend(data, data.Length, client.EndPoint, null, null);
                 }
             }
         }
