@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("halloween")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e2df1a606de2d806c21d62a8f0f1b15fc7aa794e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0ede39ec8ab282bb5f96bbb0bf1e6965139aed2a")]
 [assembly: System.Reflection.AssemblyProductAttribute("halloween")]
 [assembly: System.Reflection.AssemblyTitleAttribute("halloween")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
