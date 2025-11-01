@@ -4,66 +4,66 @@ namespace halloween.Networking;
 
 internal class Packet : IDisposable
 {
-    private List<byte> bufferList = null;
-    private byte[] bufferArray = null;
-    private int readPos = 0;
-    private bool disposed = false;
+    private List<byte> _bufferList = null;
+    private byte[] _bufferArray = null;
+    private int _readPos = 0;
+    private bool _disposed = false;
 
     public Packet()
     {
-        bufferList = new List<byte>();
-        readPos = 0;
+        _bufferList = new List<byte>();
+        _readPos = 0;
     }
 
     public Packet(byte[] data)
     {
-        bufferList = new List<byte>();
-        readPos = 0;
+        _bufferList = new List<byte>();
+        _readPos = 0;
         WriteBytes(data);
-        bufferArray = bufferList.ToArray();
+        _bufferArray = _bufferList.ToArray();
     }
 
     public byte[] GetByteArray()
     {
-        bufferArray = bufferList.ToArray();
-        return bufferArray;
+        _bufferArray = _bufferList.ToArray();
+        return _bufferArray;
     }
 
     public void WriteBytes(byte[] bytes)
     {
-        bufferList.AddRange(bytes);
+        _bufferList.AddRange(bytes);
     }
 
     public void WriteInt(int value)
     {
-        bufferList.AddRange(BitConverter.GetBytes(value));
+        _bufferList.AddRange(BitConverter.GetBytes(value));
     }
 
     public void WriteFloat(float value)
     {
-        bufferList.AddRange(BitConverter.GetBytes(value));
+        _bufferList.AddRange(BitConverter.GetBytes(value));
     }
 
     public void WriteBool(bool value)
     {
-        bufferList.AddRange(BitConverter.GetBytes(value));
+        _bufferList.AddRange(BitConverter.GetBytes(value));
     }
 
     public void WriteString(string value)
     {
         WriteInt(value.Length);
-        bufferList.AddRange(Encoding.ASCII.GetBytes(value));
+        _bufferList.AddRange(Encoding.ASCII.GetBytes(value));
     }
 
-    public byte[] ReadBytes(int length, bool moveReadPos = true)
+    public byte[] ReadBytes(int length, bool move_ReadPos = true)
     {
-        if (bufferList.Count > readPos)
+        if (_bufferList.Count > _readPos)
         {
-            byte[] value = bufferList.GetRange(readPos, length).ToArray();
+            byte[] value = _bufferList.GetRange(_readPos, length).ToArray();
 
-            if (moveReadPos)
+            if (move_ReadPos)
             {
-                readPos += length;
+                _readPos += length;
             }
 
             return value;
@@ -74,15 +74,15 @@ internal class Packet : IDisposable
         }
     }
 
-    public int ReadInt(bool moveReadPos = true)
+    public int ReadInt(bool move_ReadPos = true)
     {
-        if (bufferList.Count > readPos)
+        if (_bufferList.Count > _readPos)
         {
-            int value = BitConverter.ToInt32(bufferArray, readPos);
+            int value = BitConverter.ToInt32(_bufferArray, _readPos);
 
-            if (moveReadPos)
+            if (move_ReadPos)
             {
-                readPos += 4;
+                _readPos += 4;
             }
 
             return value;
@@ -93,15 +93,15 @@ internal class Packet : IDisposable
         }
     }
 
-    public float ReadFloat(bool moveReadPos = true)
+    public float ReadFloat(bool move_ReadPos = true)
     {
-        if (bufferList.Count > readPos)
+        if (_bufferList.Count > _readPos)
         {
-            float value = BitConverter.ToSingle(bufferArray, readPos);
+            float value = BitConverter.ToSingle(_bufferArray, _readPos);
 
-            if (moveReadPos)
+            if (move_ReadPos)
             {
-                readPos += 4;
+                _readPos += 4;
             }
 
             return value;
@@ -112,15 +112,15 @@ internal class Packet : IDisposable
         }
     }
 
-    public bool ReadBoolean(bool moveReadPos = true)
+    public bool ReadBoolean(bool move_ReadPos = true)
     {
-        if (bufferList.Count > readPos)
+        if (_bufferList.Count > _readPos)
         {
-            bool value = BitConverter.ToBoolean(bufferArray, readPos);
+            bool value = BitConverter.ToBoolean(_bufferArray, _readPos);
 
-            if (moveReadPos)
+            if (move_ReadPos)
             {
-                readPos += 1;
+                _readPos += 1;
             }
 
             return value;
@@ -131,16 +131,16 @@ internal class Packet : IDisposable
         }
     }
 
-    public string Readint(bool moveReadPos = true)
+    public string ReadString(bool move_ReadPos = true)
     {
-        if (bufferList.Count > readPos)
+        if (_bufferList.Count > _readPos)
         {
-            int length = BitConverter.ToInt32(bufferArray, readPos);
-            string value = BitConverter.ToString(bufferArray, readPos + 4, length);
+            int length = BitConverter.ToInt32(_bufferArray, _readPos);
+            string value = BitConverter.ToString(_bufferArray, _readPos + 4, length);
 
-            if (moveReadPos)
+            if (move_ReadPos)
             {
-                readPos += length + 4;
+                _readPos += length + 4;
             }
 
             return value;
@@ -153,16 +153,16 @@ internal class Packet : IDisposable
 
     protected virtual void Dispose(bool disposing)
     {
-        if(!disposed)
+        if(!_disposed)
         {
             if (disposing)
             {
-                bufferList?.Clear();
-                bufferList = null;
-                bufferArray = null;
-                readPos = 0;
+                _bufferList?.Clear();
+                _bufferList = null;
+                _bufferArray = null;
+                _readPos = 0;
             }
-            disposed = true;
+            _disposed = true;
         }
     }
 
