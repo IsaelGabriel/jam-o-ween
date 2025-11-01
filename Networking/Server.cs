@@ -49,11 +49,11 @@ internal class Server
                         break;
 
                     case ConsoleKey.T:
-                        SentToAllWithTCP();
+                        SendToAllWithTCP();
                         break;
 
                     case ConsoleKey.U:
-                        SentToAllWithUDP();
+                        SendToAllWithUDP();
                         break;
                 }
             }
@@ -223,7 +223,7 @@ internal class Server
         }
     }
 
-    private void SentToAllWithTCP()
+    private void SendToAllWithTCP()
     {
         string message = "Hello with TCP at" + DateTime.Now.ToString("HH:mm:ss.fff");
         using (Packet packet = new Packet())
@@ -238,7 +238,7 @@ internal class Server
         }
     }
 
-    private void SentToAllWithUDP()
+    private void SendToAllWithUDP()
     {
         string message = "Hello with UDP at" + DateTime.Now.ToString("HH:mm:ss.fff");
         using (Packet packet = new Packet())
