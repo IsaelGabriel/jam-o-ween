@@ -2,10 +2,11 @@
 
 public static class Game
 {
+#region WindowSetupInfo
     private readonly static string Title = "Jam-O'-Ween";
     const int WIDTH = 600;
     const int HEIGHT = 600;
-    
+#endregion
 
 
     static void Main()
