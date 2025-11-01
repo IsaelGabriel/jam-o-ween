@@ -31,22 +31,7 @@ internal class Client
 
             while (_running)
             {
-                Console.WriteLine("\nPress 'T' for TCP sending, 'U' for UDP sending or 'X' to exit.");
-                var key = Console.ReadKey(true);
-                switch(key.Key)
-                {
-                    case ConsoleKey.X:
-                        _running = false;
-                        break;
-
-                    case ConsoleKey.T:
-                        SendDataWithTcp();
-                        break;
-
-                    case ConsoleKey.U:
-                        SendDataWithUdp();
-                        break;
-                }
+                // Client behaviour here...
             }
 
         }

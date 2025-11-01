@@ -38,7 +38,7 @@ switch (key.Key)
             Console.Write("Insert IP: ");
             ip = Console.ReadLine()?? "";
 
-        } while (!ValidadeIPv4(ip));
+        } while (!ValidateIPv4(ip));
 
 
 
@@ -46,7 +46,7 @@ switch (key.Key)
         break;
 }
 
-bool ValidadeIPv4(string ipString)
+bool ValidateIPv4(string ipString)
 {
     if (string.IsNullOrWhiteSpace(ipString))
     {

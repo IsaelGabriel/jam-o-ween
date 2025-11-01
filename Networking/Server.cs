@@ -41,21 +41,7 @@ internal class Server
             Console.Write("\nServer is running. Press 'X' to stop, T or U to send a message to all clients with TCP or UDP.");
             while(_running)
             {
-                var key = Console.ReadKey(true);
-                switch(key.Key)
-                {
-                    case ConsoleKey.X:
-                        _running = false;
-                        break;
-
-                    case ConsoleKey.T:
-                        SendToAllWithTCP();
-                        break;
-
-                    case ConsoleKey.U:
-                        SendToAllWithUDP();
-                        break;
-                }
+                // Server behaviour here...
             }
         }
         catch (Exception ex)
