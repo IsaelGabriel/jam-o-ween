@@ -66,7 +66,7 @@ internal class Client
                 using (Packet packet = new Packet(data))
                 {
                     int id = packet.ReadInt();
-                    if(id == 1)
+                    if(id == (int) PacketId.MESSAGE)
                     {
                         string message = packet.ReadString();
                         Console.WriteLine($"\nTCP Received: {message}");
@@ -114,7 +114,7 @@ internal class Client
             {
                 int id = packet.ReadInt();
 
-                if (id == 1)
+                if (id == (int) PacketId.MESSAGE)
                 {
                     string message = packet.ReadString();
                     Console.WriteLine($"\n[UDP Received: {message}]");
@@ -136,7 +136,7 @@ internal class Client
             string message = "Hello with TCP at" + DateTime.Now.ToString("HH:mm:ss.fff");
             using (Packet packet = new Packet())
             {
-                packet.WriteInt(1); // Packet ID
+                packet.WriteInt((int) PacketId.MESSAGE); // Packet ID
                 packet.WriteString(message); // String message
                 var data = packet.GetByteArray();
                 _tcpStream.Write(data, 0, data.Length);
@@ -155,7 +155,7 @@ internal class Client
             string message = "Hello with UDP at" + DateTime.Now.ToString("HH:mm:ss.fff");
             using (Packet packet = new Packet())
             {
-                packet.WriteInt(1); // Packet ID
+                packet.WriteInt((int) PacketId.MESSAGE); // Packet ID
                 packet.WriteString(message); // String message
                 var data = packet.GetByteArray();
                 _udpClient.Send(data, data.Length);

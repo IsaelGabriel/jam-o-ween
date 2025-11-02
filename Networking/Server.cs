@@ -123,7 +123,7 @@ internal class Server
                 using (Packet packet = new Packet(data))
                 {
                     int id = packet.ReadInt();
-                    if(id == 1)
+                    if(id == (int) PacketId.MESSAGE)
                     {
                         string message = packet.ReadString();
                         Console.WriteLine($"\n[TCP Received: {message} from client id: {state.ClientId}]");
@@ -170,7 +170,7 @@ internal class Server
             {
                 int id = packet.ReadInt();
 
-                if (id == 1)
+                if (id == (int) PacketId.MESSAGE)
                 {
                     string message = packet.ReadString();
                     Console.WriteLine($"\n[UDP Received: {message}]");
@@ -215,7 +215,7 @@ internal class Server
         string message = "Hello with TCP at" + DateTime.Now.ToString("HH:mm:ss.fff");
         using (Packet packet = new Packet())
         {
-            packet.WriteInt(1); // Packet ID
+            packet.WriteInt((int) PacketId.MESSAGE); // Packet ID
             packet.WriteString(message); // String message
             var data = packet.GetByteArray();
             foreach (var client in _tcpClients)
@@ -230,7 +230,7 @@ internal class Server
         string message = "Hello with UDP at" + DateTime.Now.ToString("HH:mm:ss.fff");
         using (Packet packet = new Packet())
         {
-            packet.WriteInt(1); // Packet ID
+            packet.WriteInt((int) PacketId.MESSAGE); // Packet ID
             packet.WriteString(message); // String message
             var data = packet.GetByteArray();
             foreach (TcpClientState client in _tcpClients.Values)

@@ -69,19 +69,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Isael\\.nuget\\packages\\": {}
+    "/home/f-cc2023/ra234258/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\cs\\halloween\\halloween.csproj",
+      "projectUniqueName": "/home/f-cc2023/ra234258/dev/cs/halloween/halloween.csproj",
       "projectName": "halloween",
-      "projectPath": "D:\\cs\\halloween\\halloween.csproj",
-      "packagesPath": "C:\\Users\\Isael\\.nuget\\packages\\",
-      "outputPath": "D:\\cs\\halloween\\obj\\",
+      "projectPath": "/home/f-cc2023/ra234258/dev/cs/halloween/halloween.csproj",
+      "packagesPath": "/home/f-cc2023/ra234258/.nuget/packages/",
+      "outputPath": "/home/f-cc2023/ra234258/dev/cs/halloween/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Isael\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/home/f-cc2023/ra234258/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -99,11 +99,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -131,7 +126,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/8.0.111/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
