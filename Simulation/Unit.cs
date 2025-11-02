@@ -18,4 +18,15 @@ public class Unit
         return unit;
     }
 
+    public Unit Copy()
+    {
+        Unit unit = new();
+
+        unit.name = this.name;
+        unit.speed = this.speed;
+        unit.power = this.power;
+
+        return unit;
+    }
+
 }

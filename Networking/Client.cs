@@ -66,10 +66,22 @@ internal class Client
                 using (Packet packet = new Packet(data))
                 {
                     int id = packet.ReadInt();
-                    if(id == (int) PacketId.MESSAGE)
+                    switch(id)
                     {
-                        string message = packet.ReadString();
-                        Console.WriteLine($"\nTCP Received: {message}");
+                        case (int) PacketId.MESSAGE:
+                            string message = packet.ReadString();
+                            Console.WriteLine($"\nTCP Received: {message}");
+                            break;
+
+                        case (int)PacketId.UNIT_LIST:
+                            string list = packet.ReadString();
+                            Importer.ImportUnits(list);
+                            Console.WriteLine("Units received from server: ");
+                            foreach(string name in Importer.UnitNames)
+                            {
+                                Console.WriteLine(name);
+                            }
+                            break;
                     }
                 }
             }

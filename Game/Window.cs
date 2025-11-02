@@ -16,6 +16,7 @@ public static class Window
 
     public static void InitWindow(OnWindowClose onWindowClose)
     {
+        Raylib.SetTraceLogLevel(TraceLogLevel.Error);
         Raylib.InitWindow(WIDTH, HEIGHT, Title);
 
         while (!Raylib.WindowShouldClose())

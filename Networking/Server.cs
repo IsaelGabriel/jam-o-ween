@@ -12,6 +12,7 @@ internal class Server
     private Dictionary<int, TcpClientState> _tcpClients = [];
     private int _nextClientId = 1;
     private object _clientsLock = new();
+    private bool _hostEntered = false;
 
     private class TcpClientState
     {
@@ -20,6 +21,7 @@ internal class Server
         public byte[] Buffer { get; set; }
         public TcpClient Client { get; set; }
         public IPEndPoint EndPoint { get; set; }
+        public bool isHost;
     }
 
     public void Start(ushort port)
@@ -37,8 +39,9 @@ internal class Server
 
             _running = true;
 
+            Importer.ImportAll();
 
-            Console.Write("\nServer is running. Press 'X' to stop, T or U to send a message to all clients with TCP or UDP.");
+            Console.Write("\nServer is running...");
             while(_running)
             {
                 // Server behaviour here...
@@ -89,11 +92,30 @@ internal class Server
             state.Buffer = new byte[4096];
             state.ClientId = clientId;
             state.EndPoint = null;
+            if(!_hostEntered)
+            {
+                state.isHost = true;
+                _hostEntered = true;
+            }
             _tcpClients.Add(clientId, state);
+
+
 
             stream.BeginRead(state.Buffer, 0, state.Buffer.Length, OnReceiveDataWithTCP, state);
 
             _tcpListener.BeginAcceptTcpClient(OnAcceptTcpClient, null);
+
+            if (!state.isHost)
+            {
+                using (Packet packet = new Packet())
+                {
+                    packet.WriteInt((int)PacketId.UNIT_LIST);
+                    packet.WriteString(File.ReadAllText(Importer.UNITS_PATH));
+                    var data = packet.GetByteArray();
+                    stream.Write(data, 0, data.Length);
+                }
+
+            }
         }
         catch (ObjectDisposedException)
         {
@@ -101,7 +123,7 @@ internal class Server
         }
         catch (Exception ex)
         {
-
+            Console.WriteLine("Error accepting TCP client: " + ex.Message);
         }
     }
 

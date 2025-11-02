@@ -25,16 +25,14 @@ switch (key.Key)
         }).Start();
         new Task(() =>
         {
-            hostClient.Start("127.0.0.1", PORT);
+            Window.InitWindow(() =>
+            {
+                hostClient.Close();
+                hostServer.Close();
+            });
         }).Start();
 
-        Importer.ImportAll();
-
-        Window.InitWindow(() =>
-        {
-            hostClient.Close();
-            hostServer.Close();
-        });
+        hostClient.Start("127.0.0.1", PORT);
 
 
         break;
@@ -54,14 +52,14 @@ switch (key.Key)
 
         new Task(() =>
         {
-            client.Start(ip, PORT);
 
+            Window.InitWindow(() =>
+            {
+                client.Close();
+            });
         });
 
-        Window.InitWindow(() =>
-        {
-            client.Close();
-        });
+        client.Start(ip, PORT);
 
 
         break;
