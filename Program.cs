@@ -23,6 +23,12 @@ switch (key.Key)
             hostServer.Start(PORT);
 
         }).Start();
+
+        for(int i = 0; i < 5; i++)
+        {
+            Console.WriteLine("Starting client as host...");
+            Thread.Sleep(1000);
+        }
         
         hostClient.Start("127.0.0.1", PORT);
 

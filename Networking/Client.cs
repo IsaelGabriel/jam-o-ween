@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Sockets;
+using halloween.Simulation;
 
 namespace halloween.Networking;
 
@@ -83,6 +84,31 @@ internal class Client
                                 Console.WriteLine(name);
                             }
                             Console.ResetColor();
+                            break;
+
+                        case (int)PacketId.REQUEST:
+                            string requestType = packet.ReadString();
+                            switch(requestType)
+                            {
+                                case "team_name":
+                                    string teamName;
+                                    do
+                                    {
+                                        Console.WriteLine("Enter team name: ");
+                                        teamName = Console.ReadLine() ?? "";
+                                    } while (string.IsNullOrWhiteSpace(teamName));
+                                    
+                                    using (Packet packetToSend = new Packet())
+                                    {
+                                        packetToSend.WriteInt((int) PacketId.RESPONSE); // Packet ID
+                                        packetToSend.WriteString("team_name");
+                                        packetToSend.WriteString(teamName);
+                                        var dataToSend = packetToSend.GetByteArray();
+                                        _tcpStream.Write(dataToSend, 0, dataToSend.Length);
+                                    }
+
+                                    break;
+                            }
                             break;
                     }
                 }

@@ -5,6 +5,7 @@ public class Unit
     public string name = "Unit";
     public int speed = 10;
     public int power = 10;
+    public int health = 10;
 
 
     public static Unit FromDictionary(string name, Dictionary<string, string> dict)
@@ -23,14 +24,22 @@ public class Unit
         Unit unit = new();
 
         unit.name = this.name;
-        if(markAsCopy)
+        if (markAsCopy)
         {
             unit.name += " (Copy)";
         }
         unit.speed = this.speed;
         unit.power = this.power;
+        unit.health = this.health;
 
         return unit;
+    }
+    
+    public BattleEvent Attack(Unit unit)
+    {
+        unit.health -= power;
+
+        return new(this, BattleAction.ATTACK, power, [unit]);
     }
 
 }

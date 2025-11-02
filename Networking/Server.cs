@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Intrinsics.Wasm;
+using halloween.Simulation;
 
 namespace halloween.Networking;
 
@@ -22,6 +23,7 @@ internal class Server
         public TcpClient Client { get; set; }
         public IPEndPoint EndPoint { get; set; }
         public bool isHost;
+        public Team team;
     }
 
     public void Start(ushort port)
@@ -92,12 +94,14 @@ internal class Server
             state.Buffer = new byte[4096];
             state.ClientId = clientId;
             state.EndPoint = null;
-            if(!_hostEntered)
+            if (!_hostEntered)
             {
                 state.isHost = true;
                 _hostEntered = true;
                 Console.WriteLine($"TCP Client @ {endPoint.Address}:{endPoint.Port} is now the match admin.");
             }
+            state.team = new();
+
             _tcpClients.Add(clientId, state);
 
 
@@ -117,6 +121,9 @@ internal class Server
                 }
 
             }
+
+            Thread.Sleep(2000);
+            RequestFromTcpClient(clientId, "team_name");
         }
         catch (ObjectDisposedException)
         {
@@ -146,10 +153,49 @@ internal class Server
                 using (Packet packet = new Packet(data))
                 {
                     int id = packet.ReadInt();
-                    if(id == (int) PacketId.MESSAGE)
+                    switch(id)
                     {
-                        string message = packet.ReadString();
-                        Console.WriteLine($"\n[TCP Received: {message} from client id: {state.ClientId}]");
+                        case (int) PacketId.MESSAGE:
+                    
+                            string message = packet.ReadString();
+                            Console.WriteLine($"\n[TCP Received: {message} from client id: {state.ClientId}]");
+                            break;
+
+                        case (int)PacketId.RESPONSE:
+                            string responseType = packet.ReadString();
+                            switch(responseType)
+                            {
+                                case "team_name":
+                                    if (!string.IsNullOrWhiteSpace(state.team.name))
+                                    {
+                                        break;
+                                    }
+                                    string name = packet.ReadString();
+                                    bool nameAvailable = true;
+
+                                    foreach (TcpClientState client in _tcpClients.Values)
+                                    {
+                                        if (client.team.name.Equals(name))
+                                        {
+                                            nameAvailable = false;
+                                            break;
+                                        }
+                                    }
+                                    
+                                    if(nameAvailable)
+                                    {
+                                        state.team.name = name;
+                                        SendMessageToTcpClient(state.ClientId, $"Team name set to: {state.team.name}");
+                                    }else
+                                    {
+                                        SendMessageToTcpClient(state.ClientId, $"Team name  \"{name}\" is unavailable, try again.");
+                                        Thread.Sleep(1000);
+                                        RequestFromTcpClient(state.ClientId, "team_name");
+                                    }
+
+                                    break;
+                            }
+                            break;
                     }
                 }
 
@@ -267,6 +313,23 @@ internal class Server
         }
     }
 
+    private void RequestFromTcpClient(int clientId, string requestType)
+    {
+        Packet packet = new Packet();
+        packet.WriteInt((int)PacketId.REQUEST);
+        packet.WriteString(requestType);
+        var data = packet.GetByteArray();
+        _tcpClients[clientId].Stream.Write(data, 0, data.Length);
+    }
+
+    private void SendMessageToTcpClient(int clientId, string message)
+    {
+        Packet packet = new Packet();
+        packet.WriteInt((int)PacketId.MESSAGE);
+        packet.WriteString(message);
+        var data = packet.GetByteArray();
+        _tcpClients[clientId].Stream.Write(data, 0, data.Length);
+    }
 
 
     private void RemoveTcpClient(int clientId)

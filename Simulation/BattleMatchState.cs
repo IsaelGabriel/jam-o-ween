@@ -35,7 +35,58 @@ public class BattleMatchState : MatchState
 
             battles.Add((team1, team2));
         }
-        
 
+        List<BattleReport> reports = [];
+
+        foreach (var battle in battles)
+        {
+            List<BattleEvent> events = [];
+            BattleResult result;
+            int current1 = 0;
+            int current2 = 0;
+            while (current1 < Team.MAX_TEAM_SIZE && current2 < Team.MAX_TEAM_SIZE)
+            {
+                bool skip = false;
+                Unit u1 = battle.t1.units[current1];
+                Unit u2 = battle.t2.units[current2];
+                if (u1 == null || u1.health <= 0)
+                {
+                    skip = true;
+                    current1++;
+                }
+                if (u2 == null || u2.health <= 0)
+                {
+                    skip = true;
+                    current2++;
+                }
+                if (skip)
+                {
+                    continue;
+                }
+
+                Unit[] order = [u1, u2];
+                order = order.OrderByDescending(u => u.speed).ToArray();
+
+                events.Add(order[0].Attack(order[1]));
+                if(order[1].health > 0)
+                {
+                    events.Add(order[1].Attack(order[0]));
+                }
+
+            }
+            if (current1 >= Team.MAX_TEAM_SIZE && current2 >= Team.MAX_TEAM_SIZE)
+            {
+                result = BattleResult.DRAW;
+            }
+            else if (current1 >= Team.MAX_TEAM_SIZE)
+            {
+                result = BattleResult.TEAM_2;
+            }
+            else
+            {
+                result = BattleResult.TEAM_1;
+            }
+            reports.Add(new(battle, events, result));
+        }
     }
 }

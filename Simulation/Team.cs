@@ -4,7 +4,7 @@ public class Team
 {
     public const int MAX_TEAM_SIZE = 5;
 
-    public string name = "Team";
+    public string name = "";
 
     public Unit?[] units = new Unit[MAX_TEAM_SIZE];
 
