@@ -2,9 +2,10 @@ namespace halloween.Simulation;
 
 public class Match
 {
-    public List<Team> teams;
+    public Dictionary<string, Team> teams;
     private Dictionary<string, MatchState> _states = [];
     private string _currentState;
+    public List<Tuple<string, string>> nextBattles;
 
     public Match(string startingState)
     {

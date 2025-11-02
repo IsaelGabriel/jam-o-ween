@@ -96,6 +96,7 @@ internal class Server
             {
                 state.isHost = true;
                 _hostEntered = true;
+                Console.WriteLine($"TCP Client @ {endPoint.Address}:{endPoint.Port} is now the match admin.");
             }
             _tcpClients.Add(clientId, state);
 

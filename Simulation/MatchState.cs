@@ -7,8 +7,8 @@ public abstract class MatchState
 
     public delegate void StateTransition(string nextState);
 
-    public abstract void Init();
-    public abstract void EnterState();
-    public abstract void UpdateState();
-    public abstract void ExitState();
+    public virtual void Init() { }
+    public virtual void EnterState() { }
+    public virtual void UpdateState() { }
+    public virtual void ExitState() { }
 }

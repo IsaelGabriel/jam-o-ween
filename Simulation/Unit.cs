@@ -18,11 +18,15 @@ public class Unit
         return unit;
     }
 
-    public Unit Copy()
+    public Unit Copy(bool markAsCopy = false)
     {
         Unit unit = new();
 
         unit.name = this.name;
+        if(markAsCopy)
+        {
+            unit.name += " (Copy)";
+        }
         unit.speed = this.speed;
         unit.power = this.power;
 
