@@ -23,15 +23,7 @@ switch (key.Key)
             hostServer.Start(PORT);
 
         }).Start();
-        new Task(() =>
-        {
-            Window.InitWindow(() =>
-            {
-                hostClient.Close();
-                hostServer.Close();
-            });
-        }).Start();
-
+        
         hostClient.Start("127.0.0.1", PORT);
 
 
@@ -49,15 +41,6 @@ switch (key.Key)
             ip = Console.ReadLine()?? "";
 
         } while (!ValidateIPv4(ip));
-
-        new Task(() =>
-        {
-
-            Window.InitWindow(() =>
-            {
-                client.Close();
-            });
-        });
 
         client.Start(ip, PORT);
 

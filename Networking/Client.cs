@@ -77,10 +77,12 @@ internal class Client
                             string list = packet.ReadString();
                             Importer.ImportUnits(list);
                             Console.WriteLine("Units received from server: ");
-                            foreach(string name in Importer.UnitNames)
+                            Console.ForegroundColor = ConsoleColor.Blue;
+                            foreach (string name in Importer.UnitNames)
                             {
                                 Console.WriteLine(name);
                             }
+                            Console.ResetColor();
                             break;
                     }
                 }
