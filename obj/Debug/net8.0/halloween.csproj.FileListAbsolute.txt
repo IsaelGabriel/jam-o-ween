@@ -21,3 +21,4 @@
 /home/f-cc2023/ra234258/dev/cs/halloween/obj/Debug/net8.0/halloween.pdb
 /home/f-cc2023/ra234258/dev/cs/halloween/obj/Debug/net8.0/halloween.genruntimeconfig.cache
 /home/f-cc2023/ra234258/dev/cs/halloween/obj/Debug/net8.0/ref/halloween.dll
+/home/f-cc2023/ra234258/dev/cs/halloween/bin/Debug/net8.0/Data/units.json

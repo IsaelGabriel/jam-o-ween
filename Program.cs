@@ -1,4 +1,5 @@
-﻿using halloween.Game;
+﻿using halloween;
+using halloween.Game;
 using halloween.Networking;
 
 const ushort PORT = 7777;
@@ -26,6 +27,8 @@ switch (key.Key)
         {
             hostClient.Start("127.0.0.1", PORT);
         }).Start();
+
+        Importer.ImportAll();
 
         Window.InitWindow(() =>
         {

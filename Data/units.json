@@ -1,6 +1,6 @@
 {
     "vocalist" : {
-        "power" : 10,
-        "speed" : 10
+        "power" : "10",
+        "speed" : "10"
     }
 }
