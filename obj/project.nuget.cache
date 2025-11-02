@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "qrCAqleWLzsGfrGRDPEsYNSMNwZjWuCfykxOkc0Y9L2GwXv2E6qIE723w4y/MfsWBdINl/Cq5JNJJKfrkDwZCw==",
+  "dgSpecHash": "fk+RdJ0X60k=",
   "success": true,
-  "projectFilePath": "/home/f-cc2023/ra234258/dev/cs/halloween/halloween.csproj",
+  "projectFilePath": "D:\\cs\\halloween\\halloween.csproj",
   "expectedPackageFiles": [
-    "/home/f-cc2023/ra234258/.nuget/packages/raylib-cs/7.0.2/raylib-cs.7.0.2.nupkg.sha512"
+    "C:\\Users\\Isael\\.nuget\\packages\\raylib-cs\\7.0.2\\raylib-cs.7.0.2.nupkg.sha512"
   ],
   "logs": []
 }
